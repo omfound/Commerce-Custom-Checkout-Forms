@@ -1,0 +1,22 @@
+{#
+/**
+ * @file checkout_form_wrapper.html.twig
+ * Default theme implementation to present Checkout form wrapper data.
+ *
+ * This template is used when viewing Checkout form wrapper pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_checkout_form_wrapper()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('checkout_form_wrapper') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

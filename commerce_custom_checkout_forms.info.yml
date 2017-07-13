@@ -1,0 +1,5 @@
+name: Commerce Custom Checkout Forms
+type: module
+description: Customizable checkoutforms for Drupal Commerce.
+core: 8.x
+package: Commerce

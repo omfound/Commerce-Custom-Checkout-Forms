@@ -1,0 +1,12 @@
+commerce_custom_checkout_forms.checkout_form_type.*:
+  type: config_entity
+  label: 'Checkout form type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

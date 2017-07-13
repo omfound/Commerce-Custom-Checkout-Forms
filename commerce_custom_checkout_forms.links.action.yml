@@ -1,0 +1,22 @@
+entity.checkout_form.add_form:
+  route_name: 'entity.checkout_form.add_page'
+  title: 'Add Checkout form'
+  appears_on:
+    - entity.checkout_form.collection
+entity.checkout_form_type.add_form:
+  route_name: 'entity.checkout_form_type.add_form'
+  title: 'Add Checkout form type'
+  appears_on:
+    - entity.checkout_form_type.collection
+
+entity.checkout_form_wrapper.add_form:
+  route_name: 'entity.checkout_form_wrapper.add_page'
+  title: 'Add Checkout form wrapper'
+  appears_on:
+    - entity.checkout_form_wrapper.collection
+entity.checkout_form_wrapper_type.add_form:
+  route_name: 'entity.checkout_form_wrapper_type.add_form'
+  title: 'Add Checkout form wrapper type'
+  appears_on:
+    - entity.checkout_form_wrapper_type.collection
+

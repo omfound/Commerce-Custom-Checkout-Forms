@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * @file
+ * Contains commerce_custom_checkout_forms.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_help().
+ */
+function commerce_custom_checkout_forms_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the commerce_custom_checkout_forms module.
+    case 'help.page.commerce_custom_checkout_forms':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function commerce_custom_checkout_forms_theme() {
+  $theme = [];
+  $theme['checkout_form'] = [
+    'render element' => 'elements',
+    'file' => 'checkout_form.page.inc',
+    'template' => 'checkout_form',
+  ];
+  $theme['checkout_form_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'checkout_form.page.inc',
+  ];
+  $theme['checkout_form_wrapper'] = [
+    'render element' => 'elements',
+    'file' => 'checkout_form_wrapper.page.inc',
+    'template' => 'checkout_form_wrapper',
+  ];
+  $theme['checkout_form_wrapper_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'checkout_form_wrapper.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+* Implements hook_theme_suggestions_HOOK().
+*/
+function commerce_custom_checkout_forms_theme_suggestions_checkout_form(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#checkout_form'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'checkout_form__' . $sanitized_view_mode;
+  $suggestions[] = 'checkout_form__' . $entity->bundle();
+  $suggestions[] = 'checkout_form__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'checkout_form__' . $entity->id();
+  $suggestions[] = 'checkout_form__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+* Implements hook_theme_suggestions_HOOK().
+*/
+function commerce_custom_checkout_forms_theme_suggestions_checkout_form_wrapper(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#checkout_form_wrapper'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'checkout_form_wrapper__' . $sanitized_view_mode;
+  $suggestions[] = 'checkout_form_wrapper__' . $entity->bundle();
+  $suggestions[] = 'checkout_form_wrapper__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'checkout_form_wrapper__' . $entity->id();
+  $suggestions[] = 'checkout_form_wrapper__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+function commerce_custom_checkout_forms_add_checkout_form_reference_field($type, $label = 'Related Forms') {
+  $field_storage = FieldStorageConfig::loadByName('checkout_form_wrapper', 'checkout_forms');
+  $field = FieldConfig::loadByName('checkout_form_wrapper', $type->id(), 'checkout_forms');
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_name' => 'checkout_forms',
+      'field_storage' => $field_storage,
+      'entity_type' => 'checkout_form_wrapper',
+      'bundle' => $type->id(),
+      'label' => $label,
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'size' => 60,
+        'placeholder' => '',
+      ),
+    ]);
+    $field->setSetting('target_type', 'checkout_form');
+    $field->setSetting('handler', 'default');
+    $field->save(); 
+   // Assign widget settings for the 'default' form mode.
+    entity_get_form_display('checkout_form_wrapper', $type->id(), 'default')
+      ->setComponent('checkout_forms', array(
+        'type' => 'entity_reference_autocomplete',
+      ))
+      ->save();
+    // Assign display settings for the 'default' and 'teaser' view modes.
+    /*entity_get_display('checkout_form_wrapper', $type->id(), 'default')
+      ->setComponent('checkout_forms', array(
+        'label' => 'hidden',
+        'type' => 'entity_reference_entity_id',
+      ))
+      ->save();*/
+  }
+  return $field;
+}
+

@@ -1,0 +1,14 @@
+langcode: en
+status: true
+id: checkout_form_wrapper.checkout_forms
+field_name: checkout_forms
+entity_type: checkout_form_wrapper
+type: entity_reference
+settings: { target_type: checkout_form }
+module: entity_reference
+locked: false
+cardinality: 0
+translatable: true
+indexes: {  }
+persist_with_no_fields: true
+custom_storage: false

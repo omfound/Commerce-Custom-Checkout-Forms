@@ -1,0 +1,36 @@
+
+# Checkout form menu items definition
+entity.checkout_form.collection:
+  title: 'Checkout form list'
+  route_name: entity.checkout_form.collection
+  description: 'List Checkout form entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# Checkout form type menu items definition
+entity.checkout_form_type.collection:
+  title: 'Checkout form type'
+  route_name: entity.checkout_form_type.collection
+  description: 'List Checkout form type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
+
+# Checkout form wrapper menu items definition
+entity.checkout_form_wrapper.collection:
+  title: 'Checkout form wrapper list'
+  route_name: entity.checkout_form_wrapper.collection
+  description: 'List Checkout form wrapper entities'
+  parent: system.admin_structure
+  weight: 100
+
+
+# Checkout form wrapper type menu items definition
+entity.checkout_form_wrapper_type.collection:
+  title: 'Checkout form wrapper type'
+  route_name: entity.checkout_form_wrapper_type.collection
+  description: 'List Checkout form wrapper type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+

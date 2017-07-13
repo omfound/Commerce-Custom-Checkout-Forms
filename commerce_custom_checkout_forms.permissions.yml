@@ -1,0 +1,44 @@
+add checkout form entities:
+  title: 'Create new Checkout form entities'
+
+administer checkout form entities:
+  title: 'Administer Checkout form entities'
+  description: 'Allow to access the administration form to configure Checkout form entities.'
+  restrict access: true
+
+delete checkout form entities:
+  title: 'Delete Checkout form entities'
+
+edit checkout form entities:
+  title: 'Edit Checkout form entities'
+
+access checkout form overview:
+  title: 'Access the Checkout form overview page'
+
+view published checkout form entities:
+  title: 'View published Checkout form entities'
+
+view unpublished checkout form entities:
+  title: 'View unpublished Checkout form entities'
+add checkout form wrapper entities:
+  title: 'Create new Checkout form wrapper entities'
+
+administer checkout form wrapper entities:
+  title: 'Administer Checkout form wrapper entities'
+  description: 'Allow to access the administration form to configure Checkout form wrapper entities.'
+  restrict access: true
+
+delete checkout form wrapper entities:
+  title: 'Delete Checkout form wrapper entities'
+
+edit checkout form wrapper entities:
+  title: 'Edit Checkout form wrapper entities'
+
+access checkout form wrapper overview:
+  title: 'Access the Checkout form wrapper overview page'
+
+view published checkout form wrapper entities:
+  title: 'View published Checkout form wrapper entities'
+
+view unpublished checkout form wrapper entities:
+  title: 'View unpublished Checkout form wrapper entities'
