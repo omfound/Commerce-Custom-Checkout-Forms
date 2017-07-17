@@ -7,7 +7,7 @@ type: entity_reference
 settings: { target_type: checkout_form }
 module: entity_reference
 locked: false
-cardinality: 0
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: true

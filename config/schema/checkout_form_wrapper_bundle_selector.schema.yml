@@ -1,0 +1,10 @@
+field.checkout_form_wrapper_bundle_selector.value:
+  type: string
+  label: 'Default value'
+  sequence:
+    - type: mapping
+      label: 'Default'
+      mapping:
+        value:
+          type: string
+          label: 'Value'

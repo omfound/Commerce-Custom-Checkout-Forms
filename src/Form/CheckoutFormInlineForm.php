@@ -59,7 +59,7 @@ class CheckoutFormInlineForm extends EntityInlineForm {
    * {@inheritdoc}
    */
   public function getEntityLabel(EntityInterface $entity) {
-    return 'title here';
+    return 'Checkout Form';
   }
 
   /**
