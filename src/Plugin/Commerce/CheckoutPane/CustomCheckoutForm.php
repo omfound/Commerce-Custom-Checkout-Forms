@@ -41,11 +41,14 @@ class CustomCheckoutForm extends CheckoutPaneBase implements CheckoutPaneInterfa
    * {@inheritdoc}
    */
   public function buildPaneForm(array $pane_form, FormStateInterface $form_state, array &$complete_form) { 
-    if (!empty($pane_form['compound_pane_id'])) {
-      $compound_pane_id = $pane_form['compound_pane_id']['#value'];
-      $storage = $form_state->getStorage();
-      $assets = $storage[$compound_pane_id];
-      $checkout_form_wrapper = $this->entityTypeManager->getStorage('checkout_form_wrapper')->create(array('type' => $assets['bundle']));
+    $storage = $form_state->getStorage();
+    if (!empty($storage['required_form_storage'])) {
+      if (empty($storage['required_form_storage']['checkout_form_wrapper'])) {
+        $checkout_form_wrapper = $this->entityTypeManager->getStorage('checkout_form_wrapper')->create(['type' => $storage['required_form_storage']['bundle']]);
+      }
+      else {
+        $checkout_form_wrapper = $storage['required_form_storage']['checkout_form_wrapper'];
+      }
       $form_object = $this->entityTypeManager->getFormObject('checkout_form_wrapper', 'default')->setEntity($checkout_form_wrapper);
       $checkout_form = $form_object->buildForm([], $form_state);
       $eb = array();
@@ -54,7 +57,7 @@ class CustomCheckoutForm extends CheckoutPaneBase implements CheckoutPaneInterfa
       }
       $checkout_form['#entity_builders'] = $eb;
       unset($checkout_form['actions']);
-      $pane_form[$compound_pane_id] = $checkout_form;
+      $pane_form['custom_checkout_form'] = $checkout_form;
     }
     return $pane_form;
   }
@@ -71,19 +74,25 @@ class CustomCheckoutForm extends CheckoutPaneBase implements CheckoutPaneInterfa
    */
   public function submitPaneForm(array &$pane_form, FormStateInterface $form_state, array &$complete_form) {
     // Look for webform's submission handling.
-    if (!empty($pane_form['compound_pane_id'])) {
-      $compound_pane_id = $pane_form['compound_pane_id']['#value'];
+    $storage = $form_state->getStorage();
+    if (!empty($storage['required_form_storage'])) {
       $triggering_element = &$form_state->getTriggeringElement();
       $triggering_element['#ief_submit_trigger'] = TRUE;
       $storage = $form_state->getStorage();
-      $assets = $storage[$compound_pane_id];
-      $checkout_form = $this->entityTypeManager->getStorage('checkout_form_wrapper')->create(array('type' => $assets['bundle']));
-      $form_object = $this->entityTypeManager->getFormObject('checkout_form_wrapper', 'default')->setEntity($checkout_form);
-      $form_object->submitForm($pane_form[$compound_pane_id], $form_state);
-      $entity = $form_object->validateForm($pane_form[$compound_pane_id], $form_state);
+      if (empty($storage['required_form_storage']['checkout_form_wrapper'])) {
+        $checkout_form_wrapper = $this->entityTypeManager->getStorage('checkout_form_wrapper')->create(['type' => $storage['required_form_storage']['bundle']]);
+      }
+      else {
+        $checkout_form_wrapper = $storage['required_form_storage']['checkout_form_wrapper'];
+      }
+      $form_object = $this->entityTypeManager->getFormObject('checkout_form_wrapper', 'default')->setEntity($checkout_form_wrapper);
+      $form_object->submitForm($pane_form['custom_checkout_form'], $form_state);
+      $entity = $form_object->validateForm($pane_form['custom_checkout_form'], $form_state);
+      $entity->set('order_id', $this->order->id());
+      $entity->set('product_id', $storage['required_form_storage']['product']->id());
+      $entity->set('product_variation_id', $storage['required_form_storage']['product_variation']->id());
       $form_object->setEntity($entity);
-      $form_object->save($pane_form[$compound_pane_id], $form_state); 
+      $form_object->save($pane_form['custom_checkout_form'], $form_state); 
     }
   }
-
 }

@@ -108,16 +108,9 @@ function commerce_custom_checkout_forms_add_checkout_form_reference_field($type,
    // Assign widget settings for the 'default' form mode.
     entity_get_form_display('checkout_form_wrapper', $type->id(), 'default')
       ->setComponent('checkout_forms', array(
-        'type' => 'entity_reference_autocomplete',
+        'type' => 'inline_entity_form_complex',
       ))
       ->save();
-    // Assign display settings for the 'default' and 'teaser' view modes.
-    /*entity_get_display('checkout_form_wrapper', $type->id(), 'default')
-      ->setComponent('checkout_forms', array(
-        'label' => 'hidden',
-        'type' => 'entity_reference_entity_id',
-      ))
-      ->save();*/
   }
   return $field;
 }

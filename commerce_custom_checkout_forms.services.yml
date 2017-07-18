@@ -1,0 +1,4 @@
+services:
+  commerce_custom_checkout_forms.checkout_form_manager:
+    class: Drupal\commerce_custom_checkout_forms\CheckoutFormManager
+    arguments: ['@entity.query', '@entity_type.manager']

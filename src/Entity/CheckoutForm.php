@@ -207,30 +207,21 @@ class CheckoutForm extends ContentEntityBase implements CheckoutFormInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['order_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Order'))
-      ->setDescription(t('The parent order.'))
-      ->setSetting('target_type', 'commerce_order')
-      ->setReadOnly(TRUE);
-
-    $fields['product_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Product'))
-      ->setDescription(t('The parent product.'))
-      ->setSetting('target_type', 'commerce_product')
-      ->setReadOnly(TRUE);
-
-    $fields['product_variation_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Product Variation'))
-      ->setDescription(t('The parent product variation.'))
-      ->setSetting('target_type', 'commerce_product_variation')
-      ->setReadOnly(TRUE);
-
     $fields['per_quantity'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Per Quantity'))
       ->setDescription(t('Should this chekout form be filled out multiple times for each product?'))
+      ->setDefaultValue(TRUE)
+      ->setDisplayOptions('form', array(
+        'type' => 'boolean_checkbox',
+        'settings' => array(
+            'on_label' => t('Yes'),
+            'off_label' => t('No'),
+          ),
+         'weight' => -1,
+        )
+      )
       ->setDisplayConfigurable('form', TRUE)
-      ->setDefaultValue(TRUE);
-
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))

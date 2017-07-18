@@ -214,6 +214,18 @@ class CheckoutFormWrapper extends ContentEntityBase implements CheckoutFormWrapp
       ->setSetting('target_type', 'commerce_order')
       ->setReadOnly(TRUE);
 
+    $fields['product_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Product'))
+      ->setDescription(t('The parent product.'))
+      ->setSetting('target_type', 'commerce_product')
+      ->setReadOnly(TRUE);
+
+    $fields['product_variation_id'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Product Variation'))
+      ->setDescription(t('The parent product variation.'))
+      ->setSetting('target_type', 'commerce_product_variation')
+      ->setReadOnly(TRUE);
+
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Checkout form wrapper is published.'))
