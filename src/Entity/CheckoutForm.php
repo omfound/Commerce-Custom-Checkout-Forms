@@ -42,7 +42,7 @@ use Drupal\user\UserInterface;
  *   admin_permission = "administer checkout form entities",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "title",
+ *     "label" = "name",
  *     "bundle" = "type",
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
@@ -162,7 +162,7 @@ class CheckoutForm extends ContentEntityBase implements CheckoutFormInterface {
       ->setDescription(t('The ID of the CheckoutForm entity.'))
       ->setReadOnly(TRUE);
 
-    $fields['title'] = BaseFieldDefinition::create('string')
+    $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
       ->setRequired(TRUE)
       ->setTranslatable(TRUE)
@@ -171,10 +171,6 @@ class CheckoutForm extends ContentEntityBase implements CheckoutFormInterface {
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'string',
-        'weight' => -5,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
         'weight' => -5,
       ])
       ->setDisplayConfigurable('form', TRUE);
@@ -189,7 +185,8 @@ class CheckoutForm extends ContentEntityBase implements CheckoutFormInterface {
       ->setLabel(t('User Name'))
       ->setDescription(t('The Name of the associated user.'))
       ->setSetting('target_type', 'user')
-      ->setSetting('handler', 'default')
+      ->setSetting('handler', 'default');
+      /*
       ->setDisplayOptions('view', array(
         'label' => 'above',
         'type' => 'author',
@@ -203,25 +200,7 @@ class CheckoutForm extends ContentEntityBase implements CheckoutFormInterface {
           'placeholder' => '',
         ),
         'weight' => -3,
-      ))
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['per_quantity'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Per Quantity'))
-      ->setDescription(t('Should this chekout form be filled out multiple times for each product?'))
-      ->setDefaultValue(TRUE)
-      ->setDisplayOptions('form', array(
-        'type' => 'boolean_checkbox',
-        'settings' => array(
-            'on_label' => t('Yes'),
-            'off_label' => t('No'),
-          ),
-         'weight' => -1,
-        )
-      )
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
+      ));*/
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))

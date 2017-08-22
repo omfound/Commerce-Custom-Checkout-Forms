@@ -62,4 +62,14 @@ class CheckoutFormManager {
     }
     return $next_variation_id;
   }
+  public function getOrderItemByVariationId($order, $product_variation_id) {
+    $items = $order->getItems();
+    foreach ($items AS $item) {
+      $product_variation = $item->getPurchasedEntity();
+      if ($product_variation->id() == $product_variation_id) {
+        return $item;
+      }
+    } 
+    return FALSE;
+  }
 }

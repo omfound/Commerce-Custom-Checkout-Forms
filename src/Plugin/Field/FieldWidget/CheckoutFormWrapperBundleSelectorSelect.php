@@ -25,7 +25,7 @@ class CheckoutFormWrapperBundleSelectorSelect extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $bundles = \Drupal::entityManager()->getBundleInfo('checkout_form_wrapper');
-    $bundle_options = array();
+    $bundle_options = array('' => 'None');
     foreach($bundles as $key => $bundle) {
       $bundle_options[$key] = $bundle['label'];
     }

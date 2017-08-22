@@ -22,7 +22,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     },
  *   },
  *   config_prefix = "checkout_form_wrapper_type",
- *   admin_permission = "administer site configuration",
+ *   admin_permission = "administer checkout form wrapper types",
  *   bundle_of = "checkout_form_wrapper",
  *   entity_keys = {
  *     "id" = "id",

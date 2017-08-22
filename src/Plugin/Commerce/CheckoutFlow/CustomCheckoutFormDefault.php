@@ -68,7 +68,7 @@ class CustomCheckoutFormDefault extends CheckoutFlowWithPanesBase {
       'order_information' => [
         'label' => $this->t('Order information'),
         'has_sidebar' => TRUE,
-        'previous_label' => $this->t('Go back'),
+        'previous_label' => $this->t('Go /back'),
         'next_label' => $this->t('Continue'),
       ],
       'review' => [
@@ -96,10 +96,12 @@ class CustomCheckoutFormDefault extends CheckoutFlowWithPanesBase {
         $checkout_form_wrapper = $this->checkout_form_manager->getCheckoutFormWrapperByProductVariation($this->current_user->id(), $this->order->id(), $product_variation->id()); 
         $storage = $form_state->getStorage();
         $storage['required_form_storage'] = [
+          'title' => $this->current_user->getUsername() . ' ' . substr($product->getTitle(), 0, 150), 
           'bundle' => $bundle,
           'product_variation' => $product_variation,
           'product' => $product,
-          'checkout_form_wrapper' => $checkout_form_wrapper
+          'checkout_form_wrapper' => $checkout_form_wrapper,
+          'order_item' => $this->checkout_form_manager->getOrderItemByVariationId($this->order, $product_variation->id())
         ];
         $form_state->setStorage($storage);
       }

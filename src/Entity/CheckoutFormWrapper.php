@@ -177,10 +177,6 @@ class CheckoutFormWrapper extends ContentEntityBase implements CheckoutFormWrapp
         'type' => 'string',
         'weight' => -5,
       ])
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -5,
-      ])
       ->setDisplayConfigurable('form', TRUE);
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
@@ -189,8 +185,8 @@ class CheckoutFormWrapper extends ContentEntityBase implements CheckoutFormWrapp
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
-      ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', [
+      ->setTranslatable(TRUE);
+      /*->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'author',
         'weight' => 0,
@@ -204,9 +200,7 @@ class CheckoutFormWrapper extends ContentEntityBase implements CheckoutFormWrapp
           'autocomplete_type' => 'tags',
           'placeholder' => '',
         ],
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
+      ]);*/
 
     $fields['order_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Order'))

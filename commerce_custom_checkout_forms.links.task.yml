@@ -33,4 +33,3 @@ entity.checkout_form_wrapper.delete_form:
   base_route:  entity.checkout_form_wrapper.canonical
   title: Delete
   weight: 10
-

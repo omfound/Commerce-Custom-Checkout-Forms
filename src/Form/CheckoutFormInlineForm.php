@@ -32,26 +32,8 @@ class CheckoutFormInlineForm extends EntityInlineForm {
    * {@inheritdoc}
    */
   public function getTableFields($bundles) {
-    $fields = parent::getTableFields($bundles);
-    /*$fields['label']['label'] = t('Title');
-    $fields['price'] = [
-      'type' => 'field',
-      'label' => t('Price'),
-      'weight' => 10,
-    ];
-    $fields['status'] = [
-      'type' => 'field',
-      'label' => t('Status'),
-      'weight' => 100,
-      'display_options' => [
-        'settings' => [
-          'format' => 'custom',
-          'format_custom_true' => t('Active'),
-          'format_custom_false' => t('Inactive'),
-        ],
-      ],
-    ];
-*/
+    //$fields = parent::getTableFields($bundles); 
+    $fields = [];
     return $fields;
   }
 
@@ -59,7 +41,7 @@ class CheckoutFormInlineForm extends EntityInlineForm {
    * {@inheritdoc}
    */
   public function getEntityLabel(EntityInterface $entity) {
-    return 'Checkout Form';
+    return t('Checkout Form');
   }
 
   /**
@@ -79,5 +61,7 @@ class CheckoutFormInlineForm extends EntityInlineForm {
 
     return $this->checkoutFormTypes[$type_id];
   }
-
+  public function save(EntityInterface $entity) {
+    parent::save($entity);
+  }
 }

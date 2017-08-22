@@ -4,6 +4,8 @@ namespace Drupal\commerce_custom_checkout_forms\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Extension\ModuleHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class CheckoutFormWrapperTypeForm.
@@ -12,6 +14,15 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class CheckoutFormWrapperTypeForm extends EntityForm {
 
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('module_handler')
+    );
+  }
+
+  public function __construct($module_handler) {
+    $this->module_handler = $module_handler;
+  }
   /**
    * {@inheritdoc}
    */
@@ -52,6 +63,10 @@ class CheckoutFormWrapperTypeForm extends EntityForm {
     switch ($status) {
       case SAVED_NEW:
         commerce_custom_checkout_forms_add_checkout_form_reference_field($checkout_form_wrapper_type);
+        // @NB We allow other modules to attach fields here.
+        // The hooks for doing so are in flux between 8.3.x and 8.5.x.
+        // This seems like the best solution for now.
+        $this->module_handler->invokeAll('checkout_form_wrapper_entity_field_info', array('type' => $checkout_form_wrapper_type));
         drupal_set_message($this->t('Created the %label Checkout form wrapper type.', [
           '%label' => $checkout_form_wrapper_type->label(),
         ]));

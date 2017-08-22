@@ -6,6 +6,10 @@ administer checkout form entities:
   description: 'Allow to access the administration form to configure Checkout form entities.'
   restrict access: true
 
+administer checkout form types:
+  title: 'Administer Checkout form bundles'
+  restrict access: true
+
 delete checkout form entities:
   title: 'Delete Checkout form entities'
 
@@ -26,6 +30,10 @@ add checkout form wrapper entities:
 administer checkout form wrapper entities:
   title: 'Administer Checkout form wrapper entities'
   description: 'Allow to access the administration form to configure Checkout form wrapper entities.'
+  restrict access: true
+
+administer checkout form wrapper types:
+  title: 'Administer Checkout form wrapper bundles'
   restrict access: true
 
 delete checkout form wrapper entities:
